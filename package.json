@@ -1,0 +1,12 @@
+{
+  "name": "Diege_server",
+  "dependencies": {
+  	"express": "*",
+    "jade": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "redis": "*",
+    "random-token": "*",
+    "mysql": "*"
+  }
+}
