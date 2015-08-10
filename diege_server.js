@@ -3,11 +3,17 @@ var express = require('express');
 var parser = require('body-parser');
 var jade = require('jade');
 var mysql = require('mysql');
-var db_connect = mysql.createConnection({
-	host     : 'localhost',
-  	user     : 'root',
-  	password : 'node_db',
-  	database : 'diege_main'
+var fs = require('fs');
+var mail = require('./mail');
+
+var db_connect;
+fs.readFile('db.json', function(err, resp) {
+	if(err) {
+		console.log(err);
+	}
+	else {
+		db_connect = mysql.createConnection(JSON.parse(resp));
+	}
 });
 
 var app = express();
@@ -21,11 +27,28 @@ app.get('/', function(req, res) {
 
 app.post('/login', function(req, res) {
 	db_connect.connect(function() {
-		db_connect.query('SELECT * FROM `bloggers_main` WHERE `port` = 40', function(err, rows) {
-			console.log(err);
-			console.log(rows);
-			res.end();
-		})
+		db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.login + '" AND `pass` = "' + req.body.pass + '"', function(err, rows) {
+			if(rows == '') {
+				res.end('Fail');
+			}
+			else {
+				res.end('Win')
+			}
+		});
+	});
+});
+
+//Ресурсы
+app.get('/source/*', function(req, res) {
+	var addr = req.url.slice(8);
+	console.log(addr);
+	fs.readFile('source/' + addr, function(err, resp) {
+		if(err) {
+			res.end('Error!')
+		}
+		else {
+			res.end(resp);
+		}
 	});
 });
 

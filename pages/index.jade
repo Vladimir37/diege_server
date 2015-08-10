@@ -1,12 +1,28 @@
-doctype
-html(lang="ru")
-head
-	meta(charset="UTF-8")
-	title Document
-body
-	form(action="/login" method="post")
-		input(type="text" name="login")
-		br
-		input(type="password" name="pass")
-		br
-		input(type="submit" value="Войти")
+extends layout
+
+block content
+	h1 Diege — лучший в мире сервис блогов!
+	section.features
+		article.feat
+			h3 Быстрота
+			p Достаточно просто зарегистрироваться и блог уже в вашем распоряжении! 
+		article.feat
+			h3 Индивидуальность
+			p Сделайте ваш блог таким, каким желаете его видеть! Нет никаких ограничений по внешнему виду и дизайну.
+		article.feat
+			h3 Простота
+			p Вам не понадобится знание веб-дизайна или программирования. Управлять блогом просто и приятно!
+		article.feat
+			h3 Свобода
+			p Пишите в своём блоге то, что пожелаете, и снабжайте посты изображениями! Рассказ о прошедшем отдыхе, мнение о политической ситуации - никаких ограничений!
+		div.clearfix
+	section.login
+		form(action="/login" method="post")
+			input(type="text" name="login")
+			br
+			input(type="password" name="pass")
+			br
+			input(type="checkbox" value="remember" id="remember")
+			label(for="remember") Запомнить меня
+			br
+			input(type="submit" value="Войти")
