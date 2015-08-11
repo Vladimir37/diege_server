@@ -19,22 +19,31 @@ fs.readFile('db.json', function(err, resp) {
 var app = express();
 app.use(parser());
 
+//Главная
 app.get('/', function(req, res) {
 	jade.renderFile('pages/index.jade', function(err, resp) {
 		res.end(resp);
 	});
 });
 
+//Проверка логина и пароля
 app.post('/login', function(req, res) {
 	db_connect.connect(function() {
 		db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.login + '" AND `pass` = "' + req.body.pass + '"', function(err, rows) {
 			if(rows == '') {
-				res.end('Fail');
+				res.redirect('/login');
 			}
 			else {
 				res.end('Win')//Логин дальше
 			}
 		});
+	});
+});
+
+//Неверный логин или пароль
+app.get('/login', function(req, res) {
+	jade.renderFile('pages/login.jade', function(err, resp) {
+		res.end(resp);
 	});
 });
 
@@ -67,7 +76,7 @@ app.post('/mail_check', function(req, res) {
 //Ресурсы
 app.get('/source/*', function(req, res) {
 	var addr = req.url.slice(8);
-	console.log(addr);
+	//console.log(addr);
 	fs.readFile('source/' + addr, function(err, resp) {
 		if(err) {
 			res.end('Error!')

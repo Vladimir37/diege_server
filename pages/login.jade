@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	h1 Войдите в ваш аккаунт
+	h2.unlog Вы ввели неверный логин или пароль!
+	form(action="/login" method="post")
+		input(type="text" name="login" placeholder="Ваш e-mail" required)
+		br
+		input(type="password" name="pass" placeholder="Пароль" required)
+		br
+		input(type="checkbox" value="remember" id="remember")
+		label(for="remember") Запомнить меня
+		br
+		br
+		input(type="submit" value="Войти")

@@ -4,25 +4,29 @@ block content
 	h1 Diege — лучший в мире сервис блогов!
 	section.features
 		article.feat
+			img(src="/source/img/pic1.png", alt="pic1")
 			h3 Быстрота
 			p Достаточно просто зарегистрироваться и блог уже в вашем распоряжении! 
 		article.feat
+			img(src="/source/img/pic2.png", alt="pic2")
 			h3 Индивидуальность
 			p Сделайте ваш блог таким, каким желаете его видеть! Нет никаких ограничений по внешнему виду и дизайну.
 		article.feat
+			img(src="/source/img/pic3.png", alt="pic3")
 			h3 Простота
 			p Вам не понадобится знание веб-дизайна или программирования. Управлять блогом просто и приятно!
 		article.feat
+			img(src="/source/img/pic4.png", alt="pic4")
 			h3 Свобода
 			p Пишите в своём блоге то, что пожелаете, и снабжайте посты изображениями! Рассказ о прошедшем отдыхе, мнение о политической ситуации - никаких ограничений!
 		div.clearfix
 	section.sign
 		h2 Регистрация
 		form(action="/sign" method="post")
-			input(type="text" name="name" placeholder="Имя блога" required)
+			input(type="text" name="name" placeholder="Имя блога" pattern="^[a-zA-Z0-9]+$" required)
 			br
 			article.name_check Имя занято!
-			input(type="text" name="mail" placeholder="Ваш e-mail" required)
+			input(type="text" name="mail" placeholder="Ваш e-mail" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$" required)
 			br
 			article.mail_check Почта занята!
 			input(type="text" name="pass" placeholder="Пароль" required)
