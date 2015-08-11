@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	h1 Создайте аккаунт!
+	h2.unlog Выбранное вами имя или почта уже заняты
+	form(action="/sign" method="post")
+		input(type="text" name="name" placeholder="Имя блога" pattern="^[a-zA-Z0-9]+$" required)
+		br
+		article.name_check Имя занято!
+		input(type="text" name="mail" placeholder="Ваш e-mail" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$" required)
+		br
+		article.mail_check Почта занята!
+		input(type="text" name="pass" placeholder="Пароль" required)
+		br
+		input(type="submit" value="Создать" id="new_blog")

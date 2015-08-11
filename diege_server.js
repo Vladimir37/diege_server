@@ -4,6 +4,7 @@ var parser = require('body-parser');
 var jade = require('jade');
 var mysql = require('mysql');
 var fs = require('fs');
+var random = require('random-token').create('0987654321');
 var mail = require('./mail');
 
 var db_connect;
@@ -43,6 +44,54 @@ app.post('/login', function(req, res) {
 //Неверный логин или пароль
 app.get('/login', function(req, res) {
 	jade.renderFile('pages/login.jade', function(err, resp) {
+		res.end(resp);
+	});
+});
+
+//Регистрация
+app.post('/sign', function(req, res) {
+	var name_re = new RegExp('^[a-zA-Z0-9]+$');
+
+	if(name_re.test(req.body.name)) {
+		db_connect.connect(function() {
+			db_connect.query('SELECT * FROM `bloggers_main` WHERE `name` = "' + req.body.name + '"', function(err, rows) {
+				if(rows == '') {
+					db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.mail + '"', function(err, rows) {
+						if(rows == '') {
+							var key = random(8);
+							db_connect.query('SELECT * FROM `bloggers_main` ORDER BY `port` DESC LIMIT 1', function(err, rows) {
+								var new_port = ++rows[0].port;
+								db_connect.query('INSERT INTO `bloggers_main` (`name`, `mail`, `pass`, `port`, `key`) VALUES ("' + req.body.name + '", "' + req.body.mail + '", "' + req.body.pass + '", ' + new_port + ', ' + key + ')', function(err) {
+									if(err) {
+										console.log(err);
+										res.end('Error!');
+									}
+									else {
+										res.end('Win!!');
+									}
+								});
+							})
+							
+						}
+						else {
+							res.redirect('/sign');
+						}
+					});	
+				}
+				else {
+					res.redirect('/sign');
+				}
+			});
+		});
+	}
+	else {
+		res.redirect('/sign');
+	}
+});
+
+//Отдельная страница с регистрацией
+app.get('/sign', function(req, res) {
+	jade.renderFile('pages/sign.jade', function(err, resp) {
 		res.end(resp);
 	});
 });
