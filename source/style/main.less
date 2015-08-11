@@ -14,12 +14,11 @@ body {
 			margin-bottom: 50px;
 		}
 		.features {
-			border: 1px solid red;
 			margin-bottom: 40px;
 			.feat {
 				width: 48%;
 				height: 155px;
-				border: 1px solid green;
+				//border: 1px solid green;
 				box-sizing: border-box;
 				display: inline-block;
 				float: left;
@@ -28,6 +27,50 @@ body {
 					text-decoration: underline;
 				}
 			}
+		}
+		input:not([type="submit"]) {
+			font-size: 20px;
+			margin-bottom: 20px;
+			width: 500px;
+			text-align: center;
+			background: none;
+			border: none;
+			border-bottom: 1px solid orange;
+			transition-duration: 0.4s;
+			padding: 4px 0;
+			&:focus {
+				box-shadow: inset 0 -4px 0 0 orange;
+			}
+		}
+		input[type="submit"] {
+			border: none;
+			color: white;
+			background: orange;
+			font-size: 20px;
+			padding: 5px 15px;
+			margin-bottom: 40px;
+			&:disabled {
+				background: grey;
+			}
+		}
+		input[type="checkbox"] {
+			display: none;
+		}
+		label {
+			font-size: 20px;
+			border: 2px solid orange;
+			color: orange;
+			margin-bottom: 20px;
+		}
+		input:checked + label {
+			background: orange;
+			color: white;
+		}
+		.name_check, .mail_check {
+			display: none;
+			font-size: 18px;
+			font-weight: bold;
+			color: red;
 		}
 	}
 }

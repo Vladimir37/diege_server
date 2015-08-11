@@ -32,7 +32,33 @@ app.post('/login', function(req, res) {
 				res.end('Fail');
 			}
 			else {
-				res.end('Win')
+				res.end('Win')//Логин дальше
+			}
+		});
+	});
+});
+
+//Проверка занятости имени и почты 
+app.post('/name_check', function(req, res) {
+	db_connect.connect(function() {
+		db_connect.query('SELECT * FROM `bloggers_main` WHERE `name` = "' + req.body.data + '"', function(err, rows) {
+			if(rows == '') {
+				res.end('free');
+			}
+			else {
+				res.end('Not free')
+			}
+		});
+	});
+});
+app.post('/mail_check', function(req, res) {
+	db_connect.connect(function() {
+		db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.data + '"', function(err, rows) {
+			if(rows == '') {
+				res.end('free');
+			}
+			else {
+				res.end('Not free')
 			}
 		});
 	});

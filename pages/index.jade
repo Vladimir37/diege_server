@@ -16,13 +16,27 @@ block content
 			h3 Свобода
 			p Пишите в своём блоге то, что пожелаете, и снабжайте посты изображениями! Рассказ о прошедшем отдыхе, мнение о политической ситуации - никаких ограничений!
 		div.clearfix
-	section.login
-		form(action="/login" method="post")
-			input(type="text" name="login")
+	section.sign
+		h2 Регистрация
+		form(action="/sign" method="post")
+			input(type="text" name="name" placeholder="Имя блога" required)
 			br
-			input(type="password" name="pass")
+			article.name_check Имя занято!
+			input(type="text" name="mail" placeholder="Ваш e-mail" required)
+			br
+			article.mail_check Почта занята!
+			input(type="text" name="pass" placeholder="Пароль" required)
+			br
+			input(type="submit" value="Создать" id="new_blog")
+	section.login
+		h2 Вход
+		form(action="/login" method="post")
+			input(type="text" name="login" placeholder="Ваш e-mail" required)
+			br
+			input(type="password" name="pass" placeholder="Пароль" required)
 			br
 			input(type="checkbox" value="remember" id="remember")
 			label(for="remember") Запомнить меня
+			br
 			br
 			input(type="submit" value="Войти")
