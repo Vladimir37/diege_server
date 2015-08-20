@@ -5,6 +5,8 @@ var jade = require('jade');
 var mysql = require('mysql');
 var fs = require('fs');
 var random = require('random-token').create('0987654321');
+var cookie = require('cookie-parser');
+var Crypt = require('easy-encryption');
 var mail = require('./mail');
 
 var db_connect;
@@ -17,8 +19,14 @@ fs.readFile('db.json', function(err, resp) {
 	}
 });
 
+var crypt = new Crypt({
+	secret: 'vladimir_parol_37', 
+	iterations: 3700
+});
+
 var app = express();
 app.use(parser());
+app.use(cookie());
 
 //Главная
 app.get('/', function(req, res) {
@@ -35,7 +43,18 @@ app.post('/login', function(req, res) {
 				res.redirect('/login');
 			}
 			else {
-				res.end('Win')//Логин дальше
+				//Логин дальше
+				var log_params;
+				if(req.body.remember) {
+					log_params = { maxAge: 1209600000 };
+				}
+				else {
+					log_params = null;
+				}
+				//console.log(req.body.remember);
+				var crypt_key = crypt.encrypt(rows[0].key);
+				res.cookie('aut.' + rows[0].name + '.diege', crypt_key, log_params);
+				res.end('Win!');
 			}
 		});
 	});
@@ -60,7 +79,13 @@ app.post('/sign', function(req, res) {
 						if(rows == '') {
 							var key = random(8);
 							db_connect.query('SELECT * FROM `bloggers_main` ORDER BY `port` DESC LIMIT 1', function(err, rows) {
-								var new_port = ++rows[0].port;
+								var new_port;
+								if(rows == '') {
+									new_port = 81;
+								}
+								else {
+									new_port = ++rows[0].port;
+								}
 								db_connect.query('INSERT INTO `bloggers_main` (`name`, `mail`, `pass`, `port`, `key`) VALUES ("' + req.body.name + '", "' + req.body.mail + '", "' + req.body.pass + '", ' + new_port + ', ' + key + ')', function(err) {
 									if(err) {
 										console.log(err);

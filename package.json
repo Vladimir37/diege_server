@@ -5,7 +5,7 @@
     "jade": "*",
     "body-parser": "*",
     "cookie-parser": "*",
-    "redis": "*",
+    "easy-encryption": "*",
     "random-token": "*",
     "mysql": "*",
     "nodemailer": "*"
