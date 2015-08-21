@@ -51,9 +51,9 @@ app.post('/login', function(req, res) {
 				else {
 					log_params = null;
 				}
-				//console.log(req.body.remember);
 				var crypt_key = crypt.encrypt(rows[0].key);
 				res.cookie('aut.' + rows[0].name + '.diege', crypt_key, log_params);
+				res.cookie('aut.diege', true, log_params);
 				res.end('Win!');
 			}
 		});
