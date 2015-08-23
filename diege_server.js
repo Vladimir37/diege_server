@@ -7,6 +7,8 @@ var fs = require('fs');
 var random = require('random-token').create('0987654321');
 var cookie = require('cookie-parser');
 var Crypt = require('easy-encryption');
+var favicon = require('serve-favicon');
+
 var mail = require('./mail');
 
 var db_connect;
@@ -27,6 +29,7 @@ var crypt = new Crypt({
 var app = express();
 app.use(parser());
 app.use(cookie());
+app.use(favicon('source/img/favicon.ico'));
 
 //Главная
 app.get('/', function(req, res) {
@@ -34,6 +37,12 @@ app.get('/', function(req, res) {
 		res.end(resp);
 	});
 });
+
+//Тест
+app.get('/te', function(req, res) {
+	mail.confirm('vladimir_zapas@mail.ru', 'registr.jade', 1234);
+	res.end();
+})
 
 //Проверка логина и пароля
 app.post('/login', function(req, res) {
@@ -77,7 +86,7 @@ app.post('/sign', function(req, res) {
 				if(rows == '') {
 					db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.mail + '"', function(err, rows) {
 						if(rows == '') {
-							var key = random(8);
+							var key = random(6);
 							db_connect.query('SELECT * FROM `bloggers_main` ORDER BY `port` DESC LIMIT 1', function(err, rows) {
 								var new_port;
 								if(rows == '') {
@@ -92,7 +101,8 @@ app.post('/sign', function(req, res) {
 										res.end('Error!');
 									}
 									else {
-										res.end('Win!!');
+										var key_crypt = crypt.encrypt(key);
+										mail.confirm(req.body.mail, 'registr.jade', key_crypt);
 									}
 								});
 							})
@@ -160,5 +170,8 @@ app.get('/source/*', function(req, res) {
 		}
 	});
 });
+
+//Рендер нефрита
+
 
 http.createServer(app).listen(80);

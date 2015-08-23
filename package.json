@@ -8,6 +8,7 @@
     "easy-encryption": "*",
     "random-token": "*",
     "mysql": "*",
-    "nodemailer": "*"
+    "nodemailer": "*",
+    "serve-favicon": ""
   }
 }

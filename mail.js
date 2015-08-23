@@ -1,31 +1,46 @@
 var nodemailer = require('nodemailer');
 var jade = require('jade');
+var fs = require('fs');
 
-function confirm(addr, key) {
+var transporter = nodemailer.createTransport({
+	service: 'mail.ru',
+	auth: {
+		user: 'registration@diege.ru',
+		pass: 'datadata3'
+	}
+});
 
-    var transporter = nodemailer.createTransport({
-        service: 'mail.ru',
-        auth: {
-            user: 'registration@diege.ru',
-            pass: 'datadata3'
-        }
-    });
-
-    var mailOptions = {
-        from: 'registration@diege.ru', // sender address
-        to: addr, // list of receivers
-        subject: 'Регистрация на Diege.ru', // Subject line
-        html: '<b>Hello world</b>' // html body
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-            console.log(error);
-        }
-        else{
-            console.log('Message sent: ' + info.response);
-        }
-    });
+function confirm(addr, letter, key) {
+	var mailOptions = {};
+    key_obj = {};
+    key_obj.key = key;
+	jade.renderFile('pages/mails/' + letter, key_obj, function(err, resp) {
+		if(err) {
+			console.log(err);
+		}
+		else {
+			mailOptions = {
+				from: 'registration@diege.ru', // sender address
+				to: addr, // list of receivers
+				subject: 'Регистрация на Diege.ru', // Subject line
+				html: resp // html body
+			};
+			send(mailOptions);
+		}
+	});
+	
 };
+
+//Отправка
+function send(option) {
+	transporter.sendMail(option, function(error, info){
+		if(error){
+			console.log(error);
+		}
+		else{
+			console.log('Message sent: ' + info.response);
+		}
+	});
+}
 
 exports.confirm = confirm;
