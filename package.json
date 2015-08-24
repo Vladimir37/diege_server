@@ -9,6 +9,7 @@
     "random-token": "*",
     "mysql": "*",
     "nodemailer": "*",
-    "serve-favicon": ""
+    "serve-favicon": "*",
+    "ncp": "*"
   }
 }

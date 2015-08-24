@@ -4,10 +4,12 @@ var parser = require('body-parser');
 var jade = require('jade');
 var mysql = require('mysql');
 var fs = require('fs');
+var ncp = require('ncp');
 var random = require('random-token').create('0987654321');
 var cookie = require('cookie-parser');
 var Crypt = require('easy-encryption');
 var favicon = require('serve-favicon');
+var exec = require('child_process').exec;
 
 var mail = require('./mail');
 
@@ -43,7 +45,11 @@ app.get('/', function(req, res) {
 
 //Тест
 app.get('/te', function(req, res) {
-	mail.confirm('vladimir_zapas@mail.ru', 'registr.jade', 1234);
+	//mail.confirm('vladimir_zapas@mail.ru', 'registr.jade', 1234);
+	// ncp('pages', 'source/qwe', function(err) {
+	// 	console.log(err);
+	// })
+	exec('mkdir testing')
 	res.end();
 })
 
