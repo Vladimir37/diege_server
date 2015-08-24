@@ -11,6 +11,11 @@ var favicon = require('serve-favicon');
 
 var mail = require('./mail');
 
+//Регэкспы
+var re_num = new RegExp('^[0-9]{1,}$');
+var re_mail = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$');
+var re_name = new RegExp('^[a-zA-Z0-9]{1,20}$')
+
 var db_connect;
 fs.readFile('db.json', function(err, resp) {
 	if(err) {
@@ -33,9 +38,7 @@ app.use(favicon('source/img/favicon.ico'));
 
 //Главная
 app.get('/', function(req, res) {
-	jade.renderFile('pages/index.jade', function(err, resp) {
-		res.end(resp);
-	});
+	render(res, 'index');
 });
 
 //Тест
@@ -71,9 +74,7 @@ app.post('/login', function(req, res) {
 
 //Неверный логин или пароль
 app.get('/login', function(req, res) {
-	jade.renderFile('pages/login.jade', function(err, resp) {
-		res.end(resp);
-	});
+	render(res, 'login');
 });
 
 //Регистрация
@@ -86,7 +87,7 @@ app.post('/sign', function(req, res) {
 				if(rows == '') {
 					db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.mail + '"', function(err, rows) {
 						if(rows == '') {
-							var key = random(6);
+							var key = random(8);
 							db_connect.query('SELECT * FROM `bloggers_main` ORDER BY `port` DESC LIMIT 1', function(err, rows) {
 								var new_port;
 								if(rows == '') {
@@ -103,6 +104,7 @@ app.post('/sign', function(req, res) {
 									else {
 										var key_crypt = crypt.encrypt(key);
 										mail.confirm(req.body.mail, 'registr.jade', key_crypt);
+										render(res, 'mail');
 									}
 								});
 							})
@@ -124,46 +126,85 @@ app.post('/sign', function(req, res) {
 	}
 });
 
+//Подтверждение почты
+app.get('/confirm/:name', function(req, res) {
+	var enter_key = req.params.name;
+	var true_key = crypt.decrypt(enter_key);
+	if(re_num.test(true_key)) {
+		db_connect.connect(function() {
+			db_connect.query('SELECT * FROM `bloggers_main` WHERE `confirmed` = 0 AND `key` = ' + true_key, function(err, rows) {
+				if(err || rows == '') {
+					console.log(err);
+					res.redirect('/error');
+				}
+				else {
+					var new_key = random(8);
+					db_connect.query('UPDATE `bloggers_main` SET `confirmed`= 1, `key`=' + new_key + ' WHERE `id`= ' + rows[0].id, function(err) {
+						if(err) {
+							console.log(err);
+						}
+						else {
+							//Копирование и запуск блога
+							//Создание таблиц в ДБ
+							res.end('Win!')
+						}
+					});
+				}
+			});
+		});
+	}
+	else {
+		res.redirect('/error');
+	}
+});
+
 //Отдельная страница с регистрацией
 app.get('/sign', function(req, res) {
-	jade.renderFile('pages/sign.jade', function(err, resp) {
-		res.end(resp);
-	});
+	render(res, 'sign');
 });
 
 //Проверка занятости имени и почты 
 app.post('/name_check', function(req, res) {
-	db_connect.connect(function() {
-		db_connect.query('SELECT * FROM `bloggers_main` WHERE `name` = "' + req.body.data + '"', function(err, rows) {
-			if(rows == '') {
-				res.end('free');
-			}
-			else {
-				res.end('Not free')
-			}
+	if(re_name.test(req.body.data)) {
+		db_connect.connect(function() {
+			db_connect.query('SELECT * FROM `bloggers_main` WHERE `name` = "' + req.body.data + '"', function(err, rows) {
+				if(rows == '') {
+					res.end('free');
+				}
+				else {
+					res.end('Not free')
+				}
+			});
 		});
-	});
+	}
+	else {
+		res.end('Not free')
+	}
 });
 app.post('/mail_check', function(req, res) {
-	db_connect.connect(function() {
-		db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.data + '"', function(err, rows) {
-			if(rows == '') {
-				res.end('free');
-			}
-			else {
-				res.end('Not free')
-			}
+	if(re_mail.test(req.body.data)) {
+		db_connect.connect(function() {
+			db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.data + '"', function(err, rows) {
+				if(rows == '') {
+					res.end('free');
+				}
+				else {
+					res.end('Not free')
+				}
+			});
 		});
-	});
+	}
+	else {
+		res.end('Not free')
+	}
 });
 
 //Ресурсы
 app.get('/source/*', function(req, res) {
 	var addr = req.url.slice(8);
-	//console.log(addr);
 	fs.readFile('source/' + addr, function(err, resp) {
 		if(err) {
-			res.end('Error!')
+			res.redirect('/error');
 		}
 		else {
 			res.end(resp);
@@ -171,7 +212,21 @@ app.get('/source/*', function(req, res) {
 	});
 });
 
-//Рендер нефрита
+//Ошибка
+app.get('*', function(req, res) {
+	render(res, 'error');
+});
 
+//Рендер нефрита
+function render(res, page, obj) {
+	jade.renderFile('pages/' + page + '.jade', obj, function(err, resp) {
+		if(err) {
+			console.log(err);
+		}
+		else {
+			res.end(resp)
+		}
+	});
+};
 
 http.createServer(app).listen(80);
