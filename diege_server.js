@@ -49,7 +49,9 @@ app.get('/te', function(req, res) {
 	// ncp('pages', 'source/qwe', function(err) {
 	// 	console.log(err);
 	// })
-	exec('mkdir testing')
+	exec('cd /home/vladimir/diege_blog; node app.js', function(err) {
+		console.log(err);
+	});
 	res.end();
 })
 
@@ -58,7 +60,7 @@ app.post('/login', function(req, res) {
 	db_connect.connect(function() {
 		db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.login + '" AND `pass` = "' + req.body.pass + '"', function(err, rows) {
 			if(rows == '') {
-				res.redirect('/login');
+				res.redirect('/login?unlog');
 			}
 			else {
 				//Логин дальше
@@ -117,18 +119,18 @@ app.post('/sign', function(req, res) {
 							
 						}
 						else {
-							res.redirect('/sign');
+							res.redirect('/sign?unlog');
 						}
 					});	
 				}
 				else {
-					res.redirect('/sign');
+					res.redirect('/sign?unlog');
 				}
 			});
 		});
 	}
 	else {
-		res.redirect('/sign');
+		res.redirect('/sign?unlog');
 	}
 });
 
@@ -205,10 +207,19 @@ app.post('/mail_check', function(req, res) {
 	}
 });
 
+//Помощь
+app.get('/help', function(req, res) {
+	render(res, 'help');
+});
+app.get('/help/:name', function(req, res) {
+	var name = req.params.name;
+	render(res, 'help/' + name);
+});
+
 //Ресурсы
 app.get('/source/*', function(req, res) {
-	var addr = req.url.slice(8);
-	fs.readFile('source/' + addr, function(err, resp) {
+	var addr = req.url.slice(1);
+	fs.readFile(addr, function(err, resp) {
 		if(err) {
 			res.redirect('/error');
 		}
@@ -228,6 +239,7 @@ function render(res, page, obj) {
 	jade.renderFile('pages/' + page + '.jade', obj, function(err, resp) {
 		if(err) {
 			console.log(err);
+			render(res, 'error');
 		}
 		else {
 			res.end(resp)

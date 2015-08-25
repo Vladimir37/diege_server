@@ -37,4 +37,9 @@ $(document).ready(function() {
 			}
 		});
 	});
+	//Неверно заполнена форма
+	var ref = window.location.search.slice(1);
+	if(ref == 'unlog') {
+		$('.unlog').show();
+	}
 });
