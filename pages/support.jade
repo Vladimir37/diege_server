@@ -1,0 +1,12 @@
+extends layout
+
+block content
+	h1 Обращение в поддержку
+	h2 Возникли проблемы? Обратитесь в службу поддержки, мы всё решим.
+	h2.unlog Вы заполнили не все поля!
+	form(action="" method="post")
+		input(type="text" name="mail" placeholder="Ваша электронная почта" required)
+		br
+		textarea(name="text" placeholder="Ваше сообщение" required)
+		br
+		input(type="submit" value="Отправить")

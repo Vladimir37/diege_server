@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	h1 Восстановление доступа к блогу
+	h2.unlog Блога с такой почтой не существует!
+	form(action="" method="post")
+		input(type="text" name="mail" placeholder="Ваша почта")
+		br
+		input(type="submit" value="Восстановить")

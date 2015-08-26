@@ -1,6 +1,6 @@
 body
 	div(style="background: orange;")
-		img(src="http://mintfile.ru/source/img/logo" alt="logo" style="margin: 20px; height: 100px")
+		img(src="http://mintfile.ru/downloaded_images/55%3Clogo.png" alt="logo" style="margin: 20px; height: 100px")
 	div(style="background: beige; padding: 10px")
 		h1(style="text-align: center; font-size: 27px; padding: 15px;") Вы зарегистрированы на Diege.ru!
 		p(style="font-size: 18px; line-height: 22px;") Поздравляем! Ваш личный блог уже почти создан! Для завершения регистрации перейдите по ссылке: 
@@ -8,7 +8,9 @@ body
 			- var link = 'http://diege.ru/confirm/' + key;
 			a(href=link style="font-weight: bold; text-align: center; display: block;")=link
 			br 
-			p(style="font-size: 18px; line-height: 22px;") Если у вас остались какие-нибудь дополнительные вопросы, то вы всегда можете прочитать подробную инструкцию по созданию и управлению блогом 
+			p(style="font-size: 18px; line-height: 22px;") Внимание! Переходя по ссылке вы выражаете своё согласие с 
+				a(href="http://diege.ru/agreement") Догвором
+				| . В случае, если вы не согласны на заключение данного договора, не переходите по ссылке. Если у вас остались какие-нибудь дополнительные вопросы, то вы всегда можете прочитать подробную инструкцию по созданию и управлению блогом 
 				a(href='http://diege.ru/help/') http://diege.ru/help/ 
 				| или связаться с нашей службой поддержки 
 				a(href='http://diege.ru/support/') http://diege.ru/support/ 

@@ -69,6 +69,28 @@ body {
 				background: grey;
 			}
 		}
+		textarea {
+			font-size: 20px;
+			margin-bottom: 20px;
+			width: 500px;
+			height: 250px;
+			resize: none;
+			border: 1px solid orange;
+			transition-duration: 0.4s;
+			background: none;
+			box-sizing: border-box;
+			outline: none;
+			&:focus {
+				border-bottom: 6px solid orange;
+				border-right: 6px solid orange;
+			}
+		}
+		.restoring {
+			margin-top: -30px;
+			font-size: 18px;
+			font-weight: bold;
+			text-decoration: underline;
+		}
 		input[type="checkbox"] {
 			display: none;
 		}
@@ -104,6 +126,15 @@ body {
 		}
 	}
 	.help_sect {
+		.quest {
+			font-weight: bold;
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+		.quest + p {
+			margin-top: 0;
+			margin-bottom: 20px;
+		}
 		img {
 			border: 2px solid orange;
 			text-align: center;

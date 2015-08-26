@@ -110,11 +110,11 @@ app.post('/sign', function(req, res) {
 							db_connect.query('INSERT INTO `bloggers_main` (`name`, `mail`, `pass`, `port`, `key`) VALUES ("' + req.body.name + '", "' + req.body.mail + '", "' + req.body.pass + '", ' + new_port + ', ' + key + ')', function(err) {
 								if(err) {
 									console.log(err);
-									res.end('Error!');
+									res.redirect('/sign?unlog');
 								}
 								else {
 									var key_crypt = crypt.encrypt(key);
-									mail.confirm(req.body.mail, 'registr.jade', key_crypt);
+									mail.confirm(req.body.mail, 'registr.jade', 'Регистрация на Diege.ru', key_crypt);
 									render(res, 'mail');
 								}
 							});
@@ -209,6 +209,53 @@ app.get('/help', function(req, res) {
 app.get('/help/:name', function(req, res) {
 	var name = req.params.name;
 	render(res, 'help/' + name);
+});
+
+//Обращение в поддержку
+app.get('/support', function(req, res) {
+	render(res, 'support');
+});
+app.post('/support', function(req, res) {
+	if(req.body.mail && req.body.text) {
+		var quest = {};
+		quest.text = req.body.text;
+		quest.mail = req.body.mail;
+		mail.confirm('vladimir_zapas@mail.ru', 'support.jade', 'Обращение в поддержку', quest);
+		render(res, 'support_win');
+	}
+	else {
+		res.redirect('/support?unlog')
+	}
+});
+
+//Восстановление доступа
+app.get('/restoring', function(req, res) {
+	render(res, 'restoring');
+});
+app.post('/restoring', function(req, res) {
+	if(re_mail.test(req.body.mail)) {
+		db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.mail + '"', function(err, rows) {
+			if(err || rows == '') {
+				console.log(err);
+				res.redirect('/restoring?unlog');
+			}
+			else {
+				var data = {};
+				data.log = rows[0].mail;
+				data.pass = rows[0].pass;
+				mail.confirm(rows[0].mail, 'restoring.jade', 'Восстановление доступа', data);
+				render(res, 'restoring_win');
+			}
+		})
+	}
+	else {
+		res.redirect('/restoring?unlog');
+	}
+});
+
+//Изменение пароля
+app.get('/pass_change', function(req, res) {
+	render(res, 'pass');
 });
 
 //Ресурсы

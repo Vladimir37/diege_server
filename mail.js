@@ -10,7 +10,7 @@ var transporter = nodemailer.createTransport({
 	}
 });
 
-function confirm(addr, letter, key) {
+function confirm(addr, letter, title, key) {
 	var mailOptions = {};
     key_obj = {};
     key_obj.key = key;
@@ -22,7 +22,7 @@ function confirm(addr, letter, key) {
 			mailOptions = {
 				from: 'registration@diege.ru', // sender address
 				to: addr, // list of receivers
-				subject: 'Регистрация на Diege.ru', // Subject line
+				subject: title, // Subject line
 				html: resp // html body
 			};
 			send(mailOptions);
@@ -38,7 +38,7 @@ function send(option) {
 			console.log(error);
 		}
 		else{
-			console.log('Message sent: ' + info.response);
+			console.log('Письмо отправлено: ' + info.response);
 		}
 	});
 }
