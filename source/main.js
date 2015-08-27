@@ -53,4 +53,7 @@ $(document).ready(function() {
 			$('input[type="submit"]').attr('disabled', true);
 		}
 	});
+	//Высота окна и футер
+	var windows_height = $(document).height() - 270;
+	$('.content').css('min-height', windows_height + 'px');
 });
