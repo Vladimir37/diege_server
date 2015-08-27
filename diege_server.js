@@ -17,7 +17,8 @@ var connect = require('./disconnect');
 //Регэкспы
 var re_num = new RegExp('^[0-9]{1,}$');
 var re_mail = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$');
-var re_name = new RegExp('^[a-zA-Z0-9]{1,20}$')
+var re_name = new RegExp('^[a-zA-Z0-9]{1,20}$');
+var re_pass = new RegExp('^[а-яА-Яa-zA-Z0-9\+\-\_\!\&\?\%\@\ё\Ё]{1,}$');
 
 //Подключение к базе
 var db_connect;
@@ -93,7 +94,7 @@ app.get('/login', function(req, res) {
 app.post('/sign', function(req, res) {
 	var name_re = new RegExp('^[a-zA-Z0-9]+$');
 
-	if(name_re.test(req.body.name)) {
+	if(name_re.test(req.body.name) && re_pass.test(req.body.pass)) {
 		db_connect.query('SELECT * FROM `bloggers_main` WHERE `name` = "' + req.body.name + '"', function(err, rows) {
 			if(rows == '') {
 				db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.mail + '"', function(err, rows) {
@@ -256,6 +257,34 @@ app.post('/restoring', function(req, res) {
 //Изменение пароля
 app.get('/pass_change', function(req, res) {
 	render(res, 'pass');
+});
+app.post('/pass_change', function(req, res) {
+	if(re_mail.test(req.body.mail) && re_pass.test(req.body.old_pass) && re_pass.test(req.body.new_pass) && req.body.new_pass == req.body.new_pass2) {
+		db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.mail + '" AND `pass` = "' + req.body.old_pass + '"', function(err, rows) {
+			if(err || rows == '') {
+				console.log(err);
+				res.redirect('/pass_change?unlog');
+			}
+			else {
+				db_connect.query('UPDATE `bloggers_main` SET `pass`="' + req.body.new_pass + '" WHERE `mail`="' + req.body.mail + '"', function(err) {
+					if(err) {
+						console.log(err);
+						res.redirect('/pass_change?unlog');
+					}
+					else {
+						var data = {};
+						data.log = req.body.mail;
+						data.pass = req.body.new_pass;
+						mail.confirm(req.body.mail, 'pass.jade', 'Изменение пароля', data);
+						render(res, 'pass_win');
+					}
+				});
+			}
+		});
+	}
+	else {
+		res.redirect('/pass_change?unlog');
+	}
 });
 
 //Ресурсы

@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	h1 Изменить пароль
+	h2.unlog Почта или пароль неверны!
+	form(action="" method="post")
+		input(type="text" name="mail" placeholder="Ваша почта" required)
+		br
+		input(type="password" name="old_pass" placeholder="Старый пароль" required)
+		br
+		input(type="password" name="new_pass" placeholder="Новый пароль" pattern="^[а-яА-Яa-zA-Z0-9\+\-\_\!\&\?\%\@\ё\Ё]{1,}$" required)
+		br
+		input(type="password" name="new_pass2" placeholder="Новый пароль ещё раз" pattern="^[а-яА-Яa-zA-Z0-9\+\-\_\!\&\?\%\@\ё\Ё]{1,}$" required)
+		br
+		article.unpass Пароли не совпадают!
+			br
+		input(type="submit" value="Изменить")

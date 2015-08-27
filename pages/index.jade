@@ -29,7 +29,7 @@ block content
 			input(type="text" name="mail" placeholder="Ваш e-mail" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$" required)
 			br
 			article.mail_check Почта занята!
-			input(type="text" name="pass" placeholder="Пароль" required)
+			input(type="text" name="pass" placeholder="Пароль" pattern="^[а-яА-Яa-zA-Z0-9\+\-\_\!\&\?\%\@\ё\Ё]{1,}$" required)
 			br
 			input(type="submit" value="Создать" id="new_blog")
 	section.login

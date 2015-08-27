@@ -1,0 +1,14 @@
+body
+	div(style="background: orange;")
+		img(src="http://diege.ru/source/img/logo.png" alt="logo" style="margin: 20px; height: 100px")
+	div(style="background: beige; padding: 10px")
+		h1(style="text-align: center; font-size: 27px; padding: 15px;") Изменение пароля на Diege.ru
+		p(style="font-size: 18px; line-height: 22px;") На ваш адрес поступил запрос на изменения пароля на блог. Нынешние данные для входа таковы:
+		p(style="font-size: 21px;") 
+			b(style="font-weight: bold;") Ваш логин: 
+			| #{key.log}
+		p(style="font-size: 21px;") 
+			b(style="font-weight: bold;") Ваш пароль: 
+			| #{key.pass}
+	div(style="background: orange; padding: 10px; height: 30px")
+		a(href="http://diege.ru" style="float: right") http://diege.ru

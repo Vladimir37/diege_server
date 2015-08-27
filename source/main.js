@@ -42,4 +42,15 @@ $(document).ready(function() {
 	if(ref == 'unlog') {
 		$('.unlog').show();
 	}
+	//Несовпадение новых паролей
+	$('input[name="new_pass2"]').blur(function() {
+		if($('input[name="new_pass2"]').val() == $('input[name="new_pass"]').val()) {
+			$('.unpass').slideUp();
+			$('input[type="submit"]').attr('disabled', false);
+		}
+		else {
+			$('.unpass').slideDown();
+			$('input[type="submit"]').attr('disabled', true);
+		}
+	});
 });
