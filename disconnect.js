@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var emitter = require('events').EventEmitter;
 
 var connection;
 
@@ -23,7 +24,7 @@ function handleDisconnect(db_config) {
 			throw err;
 		}
 	});
-}
+};
 
 //Возврат дескриптора
 function connection_desc() {

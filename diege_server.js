@@ -21,20 +21,23 @@ var re_name = new RegExp('^[a-zA-Z0-9]{1,20}$');
 var re_pass = new RegExp('^[а-яА-Яa-zA-Z0-9\+\-\_\!\&\?\%\@\ё\Ё]{1,}$');
 
 //Подключение к базе
-var db_connect;
 fs.readFile('db.json', function(err, resp) {
 	if(err) {
 		console.log(err);
 	}
 	else {
-		db_connect = JSON.parse(resp);
-		connect.activate(db_connect);
-		setTimeout(function() {
-			db_connect = connect.connection();
-		}, 200);
+		var db_data = JSON.parse(resp);
+		connect.activate(db_data);
 	}
 });
+Object.defineProperty(global, 'db_connect', {
+	get: function() {
+		return connect.connection();
+	},
+	set: function(value) {}
+});
 
+//Данные зашифровки
 var crypt = new Crypt({
 	secret: 'vladimir_parol_37', 
 	iterations: 3700
