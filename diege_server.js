@@ -288,6 +288,11 @@ app.get('/help/:name', function(req, res) {
 	render(res, 'help/' + name);
 });
 
+//Договор
+app.get('/agreement', function(req, res) {
+	render(res, 'agreement');
+});
+
 //Обращение в поддержку
 app.get('/support', function(req, res) {
 	render(res, 'support');
