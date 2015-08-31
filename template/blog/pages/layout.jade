@@ -1,0 +1,44 @@
+doctype
+html(lang="ru")
+	head
+		meta(charset="UTF-8")
+		title=blog_name
+		link(rel="stylesheet/less" type="text/css" href="/source/style/main.less")
+		script(src="/source/less.js")
+		script(src="/source/jquery.js")
+		script(src="/source/spectrum.js")
+		script(src="/source/main.js")
+		script(src="/source/style/jquery-ui.min.js")
+		link(rel="stylesheet", href="/source/style/jquery-ui.min.css")
+		link(rel="stylesheet", href="/source/style/jquery-ui.structure.min.css")
+		link(rel="stylesheet", href="/source/style/jquery-ui.theme.min.css")
+		link(rel="stylesheet", href="/source/spectrum.css")
+		link(rel="stylesheet", type="text/css", href="/settings")
+		include mixins
+	body
+		section.back
+		section.wrapper
+			section.main_field
+			h1=head.one
+			h2=head.two
+			article.ribbon
+				block ribbon
+			article.button_admin
+				a(href="/posting")
+					article.but_adm Создать пост
+				a(href="/pool")
+					article.but_adm Пул
+				a(href="/control")
+					article.but_adm Настройки
+			section.content
+				block content
+			section.system
+				block system
+			-if(main_panel.enabled == 1)
+				section.panel
+					block panel
+			article.clearfix
+			section.footer
+				a(href="http://diege.ru" target="_blank")
+					article.parent Создано на
+						img(src="/source/img/logo_min.png", alt="diege_logo")

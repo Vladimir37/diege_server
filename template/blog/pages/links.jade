@@ -1,0 +1,29 @@
+extends layout
+
+block content
+	section.links
+		- if(Object.keys(top_panel.articles) == '')
+			article.add_link
+				h3 Добавьте ссылки на верхнюю панель!
+				form(action="" method="post")
+					input(type="hidden" name="type" value="2")
+					input(type="text" name="name" placeholder="Имя (не больше 15 символов)" pattern="^[a-zA-Zа-яА-Я0-9\ ]{1,15}$" required)
+					article.select
+						- for(k in added)
+							input(type="radio" value=k name="post" id=k checked)
+							label(for=k)=added[k]
+					input(type="submit" value="Создать").but_read
+		- else
+			- for(k in top_panel.articles)
+				mixin link(top_panel.articles[k], k, added[top_panel.articles[k]])
+			- if(Object.keys(top_panel.articles).length < 3)
+				article.add_link
+					h3 Создать новую ссылку
+					form(action="" method="post")
+						input(type="hidden" name="type" value="2")
+						input(type="text" name="name" placeholder="Имя (не больше 20 символов)" pattern="^[a-zA-Zа-яА-Я0-9\ ]{1,20}$" required)
+						article.select
+							- for(k in added)
+								input(type="radio" value=k name="post" id=k checked)
+								label(for=k)=added[k]
+						input(type="submit" value="Создать").but_read

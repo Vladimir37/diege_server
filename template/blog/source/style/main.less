@@ -1,0 +1,389 @@
+body {
+	margin: 0;
+	.main_field {
+		position: absolute;
+		width: 980px;
+		height: 100%;
+		z-index: -1;
+		left: 0;
+	}
+	.back {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+	}
+	.wrapper {
+		width: 960px;
+		position: relative;
+		margin: 0 auto;
+		padding: 10px;
+		padding-top: 20px;
+		background: rgba(255, 255, 255, 0);
+		h1 {
+			font-size: 40px;
+			margin: 15px;
+		}
+		h2 {
+			margin-left: 15px;
+		}
+		.ribbon {
+			width: 100%;
+		}
+			.content {
+				margin-top: 20px;
+				.post_main {
+					white-space: pre-wrap;
+					padding-top: 10px;
+					.content_post {
+						margin: 30px 0;
+					}
+					.time_post {
+						float: right;
+						color: #464444;
+						font-weight: bold;
+					}
+					.rubric_post {
+						font-size: 20px;
+						color: black;
+					}
+					a {
+						text-decoration: none;
+					}
+					h2 {
+						padding-top: 10px;
+					}
+					h3 {
+						font-size: 25px;
+						//padding-top: 10px;
+					}
+					img {
+						max-width: 100%;
+					}
+				}
+				.post {
+					margin-bottom: 20px;
+					border-bottom: 1px solid black;
+					.post_tit {
+						padding-top: 10px;
+					}
+					.in {
+						display: inline-block;
+						padding: 0 5px;
+						&:not(:first-of-type) {
+							border-left: 1px dotted grey;
+						}
+					}
+					.data_post {
+						white-space: pre-wrap;
+						overflow-x: hidden;
+						img {
+							max-width: 200px;
+							max-height: 150px;
+							display: block;
+						}
+					}
+					.but_read {
+						float: right;
+					}
+				}
+			}
+			.panel {
+				margin-top: -30px;
+				.pan {
+					width: 100%;
+					a {
+						text-decoration: none;
+						color: inherit;
+					}
+					article {
+						padding: 4px;
+						border-bottom: 1px solid black;
+						box-sizing: border-box;
+					}
+					.pan_title {
+						font-size: 20px;
+						font-weight: bold;
+						text-transform: uppercase;
+					}
+					.pan_list {
+						padding-left: 20px;
+					}
+					.pan_month {
+						padding-left: 35px;
+					}
+					.pan_year {
+						font-weight: bold;
+					}
+				}
+			}
+			.editing {
+				border: 1px solid black;
+			}
+	}
+	.back {
+		z-index: -1;
+	}
+	.footer {
+		width: 100%;
+		height: 60px;
+	}
+}
+.system {
+	margin-top: 30px;
+	.editing {
+		width: 960px;
+		margin: 0 auto;
+		text-align: center;
+		.edit_block {
+			display: inline-block;
+			padding: 15px;
+			border: 2px solid black;
+			text-align: center;
+			margin: 10px;
+			.titles {
+				font-size: 18px;
+				width: 90%;
+				margin-bottom: 5px;
+			}
+			.rib_col {
+				margin: 0 15px;
+			}
+		}
+		#pan_adm {
+			width: 700px;
+		}
+	}
+}
+.clearfix {
+	clear: both;
+	width: 100%;
+}
+.data_system {
+	display: none;
+}
+.ent_back {
+	text-align: center;
+	img {
+		width: 500px;
+		box-sizing: border-box;
+		margin: 10px;
+		border: 2px solid orange;
+	}
+	input:checked + label img {
+		border: 8px inset orange;
+	}
+	input[type='radio'] {
+		display: none;
+	}
+	input[type="submit"] {
+		margin: 15px;
+	}
+	.wrong_file {
+		display: none;
+		font-size: 25px;
+		font-weight: bold;
+		color: red;
+	}
+}
+.posting {
+	text-align: center;
+	input {
+		//margin: 10px;
+		&[type="file"] {
+			width: 90px;
+		}
+	}
+	input, textarea {
+		margin: 10px;
+		font-size: 18px;
+		width: 450px;
+	}
+	textarea {
+		resize: none;
+		height: 500px;
+	}
+	.hidden {
+		display: none;
+	}
+	.sub_post {
+		width: 140px;
+		padding: 5px 10px;
+		font-size: 20px;
+		margin: 0 auto;
+		cursor: pointer;
+	}
+	#sub_post_but {
+		display: none;
+	}
+	#save_to_pool {
+		width: 200px;
+	}
+}
+.comment_post {
+	border: 2px solid black;
+	background: #ADADAD;
+	padding: 20px;
+	margin: 10px 0;
+	.comm_head {
+		margin-bottom: 20px;
+		height: 10px;
+		.comm_name {
+			float: left;
+			font-size: 18px;
+			a {
+				text-decoration: underline;
+				font-weight: bold;
+			}
+		}
+		.comm_date {
+			float: right;
+		}
+	}
+	.comm_text {
+		border: 2px solid black;
+		background: white;
+		padding: 5px;
+	}
+	.comm_control {
+		text-align: right;
+		padding-top: 5px;
+		.but_read {
+			padding: 0 2px;
+			font-size: 14px;
+			font-weight: normal;
+			margin-bottom: -10px;
+		}
+	}
+}
+.send_comment {
+	border: 2px solid black;
+	margin: 20px;
+	text-align: center;
+	box-sizing: border-box;
+	padding: 10px;
+	background: #ADADAD;
+	input[type="text"], textarea {
+		width: 80%;
+		margin-bottom: 10px;
+		font-size: 20px;
+	}
+	textarea {
+		height: 100px;
+		resize: none;
+	}
+}
+.but_read {
+	padding: 5px 10px;
+	font-weight: bold;
+	font-size: 18px;
+	border: 1px solid black;
+	margin-bottom: 10px;
+}
+.page_control {
+	width: 150px;
+	text-align: center;
+	&_prev {
+		float: left;
+	}
+	&_next {
+		float: right;
+	}
+}
+.publish {
+	text-align: center;
+}
+.link {
+	border: 2px solid black;
+	margin: 20px 0;
+	padding: 10px;
+	background: #ADADAD;
+	.name {
+		font-size: 16px;
+		font-weight: bold;
+		border: 1px solid black;
+		padding: 5px;
+		width: 330px;
+		margin-bottom: 10px;
+		background: white;
+	}
+	.db_name {
+		font-size: 16px;
+		font-weight: bold;
+		border: 1px solid black;
+		padding: 5px;
+		width: 330px;
+		margin-bottom: 10px;
+		background: white;
+	}
+	.link_del {
+		float: right;
+	}
+}
+.add_link {
+	text-align: center;
+	input[type="text"] {
+		margin: 20px;
+		font-size: 18px;
+		width: 300px;
+	}
+	.select {
+		border: 2px solid black;
+		height: 200px;
+		overflow-y: scroll;
+		text-align: left;
+		margin-bottom: 20px;
+		label {
+			display: block;
+			font-size: 18px;
+		}
+		input:checked + label {
+			background: grey;
+			color: white;
+		}
+		input {
+			display: none;
+		}
+	}
+}
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+nav {
+	font-size: 20px;
+	font-weight: bold;
+	height: 100%;
+	display: inline-block;
+	margin-left: 15px;
+}
+.parent {
+	float: right;
+	margin-top: 100px;
+	margin-bottom: 20px;
+	font-weight: bold;
+	text-shadow: 0 0 2px white;
+	img {
+		width: 100px;
+		vertical-align: middle;
+		margin-left: 10px;
+	}
+}
+textarea.content_post.data_post {
+	width: 100%;
+	resize: none;
+	height: 400px;
+}
+.button_admin {
+	width: 50%;
+	position: absolute;
+	display: none;
+	.but_adm {
+		display: inline-block;
+		padding: 5px;
+		margin-right: 10px;
+		border-radius: 0 0 15px 15px;
+	}
+}
+.control_blog {
+	text-align: center;
+}

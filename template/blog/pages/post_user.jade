@@ -1,0 +1,28 @@
+extends layout
+
+block content
+	section.post_main
+		h3.post_tit!=added.name
+		article.time_post=extra
+		a(href="/rubric/" + added.rubric)
+			article.rubric_post Рубрика: !{added.rubric}
+		article.content_post.data_post!=added.text
+	section.comment
+		- if(main.comments == 1)
+			article.send_comment
+				form(action="" method="post")
+					- if(extra3)
+						article.login_name=extra3
+						input(type="hidden" name="author" value=1)
+					- else
+						input(type="text" name="name" placeholder="Ваше имя")
+					br
+					textarea(name="comment" placeholder="Ваш комментарий" required)
+					br
+					input(type="submit" value="Отправить").but_read
+	-if(extra2)
+		- for(var i = 0; i < extra2.length; i++)
+			-if(extra2[i].author_blog == 1)//
+				mixin comment('<a href="http://' + extra2[i].autor_name + '.diege.ru">' + extra2[i].autor_name + '</a>', extra2[i].date, extra2[i].text)
+			-else
+				mixin comment(extra2[i].autor_name, extra2[i].date, extra2[i].text)

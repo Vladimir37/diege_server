@@ -1,0 +1,26 @@
+extends layout
+
+block content
+	section.ent_back
+		article.wrong_file Неверный формат файла!
+		form(action="/edit_pic" method="post")
+			- for(var i = 0; i < added.length; i++)
+				- var path = 'source/back-blog/' + added[i]
+				input(type="radio" name="pic" value=added[i] id=added[i])
+				label(for=added[i])
+					img(src=path, alt="pic")
+			article.perm
+				input(type="radio" name="back_type" value="1" id="back_type1")
+				label(for="back_type1") Растянуть
+				input(type="radio" name="back_type" value="2" id="back_type2")
+				label(for="back_type2") Замостить
+			input(type="submit" class="sub_but" value="Сохранить")
+		br
+		form(action="/new_back" method="post" enctype="multipart/form-data")
+			h3 Новый фон
+			input(type="file" name="back" accept="image/jpeg")
+			br
+			input(type="submit" class="sub_but" value="Загрузить")
+	section.data_system
+		input(type="text" id="sys30" value=content.background)
+		input(type="text" id="sys31" value=content.back_type)

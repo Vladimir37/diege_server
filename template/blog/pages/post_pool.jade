@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	section.post_main
+		h3=added.name
+		article.time_post=extra
+		a(href="/rubric/" + added.rubric)
+			article.rubric_post Рубрика: #{added.rubric}
+		article.content_post!=added.text
+		article.publish
+			form(action="" method="post")
+				input(type="hidden" name="type" value="1")
+				input(type="submit" value="Опубликовать").but_read
+			br
+			form(action="" method="post")
+				input(type="hidden" name="type" value="2")
+				input(type="submit" value="Удалить").but_read

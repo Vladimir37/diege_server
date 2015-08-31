@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	section.control_blog
+		h3 Управление блогом
+		a(href="/admin")
+			input(type="button" value="Настройки внешнего вида").but_read
+		br
+		a(href="/links")
+			input(type="button" value="Настройка ссылок в ленте").but_read
+		br
+		a(href="http://diege.ru/pass_change" target="_blank")
+			input(type="button" value="Изменить пароль").but_read
+		br
+		a(href="http://diege.ru/help" target="_blank")
+			input(type="button" value="Помощь").but_read

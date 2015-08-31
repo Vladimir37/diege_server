@@ -1,0 +1,24 @@
+extends layout
+
+block content
+	section.posting
+		form(action="" method="post" enctype="multipart/form-data")
+			input(type="text" name="title" placeholder="Заголовок (не больше 20 символов)" pattern="^[a-zA-Zа-яА-Я0-9\ \?\!\.\ё]{1,20}$" required)
+			br
+			input(type="text" name="rubric" placeholder="Рубрика (необязательно)" pattern="^[a-zA-Zа-яА-Я0-9\ ]{1,20}$")
+			br
+			textarea(name="content" placeholder="Текст поста")#content_post
+			br
+			h3 Прикрепить изображения
+			input(type="file" name="img1" accept="image/jpeg" data-changed=false size=1)
+			br
+			input(type="file" name="img2" accept="image/jpeg" data-changed=false size=1).hidden
+			br
+			input(type="file" name="img3" accept="image/jpeg" data-changed=false size=1).hidden
+			br
+			article.but_read.sub_post#post_submit Отправить
+			input(type="radio" name="pool" value="0" checked).hidden
+			input(type="radio" name="pool" value="1")#to_pool_radio.hidden
+			input(type="submit")#sub_post_but
+			br
+			article.but_read.sub_post#save_to_pool Сохранить в пул

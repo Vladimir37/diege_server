@@ -1,0 +1,13 @@
+{
+  "name": "Diege",
+  "dependencies": {
+  	"express": "*",
+    "jade": "*",
+    "body-parser": "*",
+    "formidable": "*",
+    "cookie-parser": "*",
+    "easy-encryption": "*",
+    "random-token": "*",
+    "serve-favicon": "*"
+  }
+}

@@ -1,0 +1,162 @@
+extends layout
+
+block system
+	form(action="/res" method="post") 
+		section.editing
+			article.edit_block
+				h3 Главный заголовок
+				input(type="text" name="main_tit" value=head.one class="titles")
+				article.perm
+					input(type="radio" name="m_tit_pos" value="1" id="mtp1")
+					label(for="mtp1") Слева
+					input(type="radio" name="m_tit_pos" value="2" id="mtp2")
+					label(for="mtp2") В центре 
+					input(type="radio" name="m_tit_pos" value="3" id="mtp3")
+					label(for="mtp3") Справа
+				h4 Цвет
+				input(type="text" id="m_tit_color" name="m_tit_color" value=head.one_col)
+			article.edit_block
+				h3 Вторичный заголовок
+				input(type="text" name="sec_tit" value=head.two class="titles")
+				article.perm
+					input(type="radio" name="s_tit_pos" value="1" id="stp1")
+					label(for="stp1") Слева
+					input(type="radio" name="s_tit_pos" value="2" id="stp2")
+					label(for="stp2") В центре 
+					input(type="radio" name="s_tit_pos" value="3" id="stp3")
+					label(for="stp3") Справа
+				h4 Цвет
+				input(type="text" id="s_tit_color" name="s_tit_color" value=head.two_col)
+			br
+			article.edit_block
+				h3 Управление лентой
+				article.perm
+					input(type="radio" name="rib_sort" value="1" id="rs1")
+					label(for="rs1") Однотонная
+					input(type="radio" name="rib_sort" value="2" id="rs2")
+					label(for="rs2") Двухцветная
+					input(type="radio" name="rib_sort" value="3" id="rs3")
+					label(for="rs3") Трёхцветная
+				h4 Толщина ленты
+				article.perm
+					input(type="radio" name="rib_he" value="1" id="he1")
+					label(for="he1") Тонкая
+					input(type="radio" name="rib_he" value="2" id="he2")
+					label(for="he2") Толстая
+				h4 Цвет ленты
+				input(type="text" id="rib_color_f" name="f_rib_color" value=top_panel.back_color_f)
+				input(type="text" id="rib_color_s" name="s_rib_color" value=top_panel.back_color_s)
+				h4 Цвет текста на ленте
+				input(type="text" name="rib_font" id="rib_font" value=top_panel.color)
+			br
+			article.edit_block#pan_adm
+				h3 Управление панелью
+				article.perm
+					input(type="radio" name="pan_main" value="1" id="mp1")
+					label(for="mp1") Включить
+					input(type="radio" name="pan_main" value="2" id="mp2")
+					label(for="mp2") Отключить
+				article.edit_block#pan_cont
+					h4 Положение панели
+					article.perm
+						input(type="radio" name="pan_pos" value="1" id="pp1")
+						label(for="pp1") Слева
+						input(type="radio" name="pan_pos" value="2" id="pp2")
+						label(for="pp2") Справа
+					h4 Цвет текста на панели
+					input(type="text" name="panel_color" id="panel_color" value=main_panel.color)
+					h4 Цвет фона у заголовков панели 
+					input(type="text" name="panel_color_tit" id="panel_color_tit" value=main_panel.back_title)
+					h4 Цвет фона у строк панели
+					input(type="text" name="panel_color_li" id="panel_color_li" value=main_panel.back_main)
+					h4 Новые записи
+					article.perm
+						input(type="radio" name="news" value="1" id="news1")
+						label(for="news1") Скрыть
+						input(type="radio" name="news" value="2" id="news2")
+						label(for="news2") Показать
+					h4 Рубрики
+					article.perm
+						input(type="radio" name="bench" value="1" id="bench1")
+						label(for="bench1") Скрыть
+						input(type="radio" name="bench" value="2" id="bench2")
+						label(for="bench2") Показать
+					h4 Архив
+					article.perm
+						input(type="radio" name="arc" value="1" id="arc1")
+						label(for="arc1") Скрыть
+						input(type="radio" name="arc" value="2" id="arc2")
+						label(for="arc2") Показать
+			br
+			article.edit_block
+				h3 Главный блок
+				h4 Цвет основого блока
+				input(type="text" id="back_cont" name="back_cont" value=content.back_color)
+				input(type="hidden" name="opacity" id="opacity" value=content.opacity)
+				h4 Прозрачность основного блока
+				#slide_opacity
+				h4 Цвет заголовков
+				input(type="text" name="color_main_tit" id="color_main_tit" value=content.title_color)
+				h4 Цвет обычного текста
+				input(type="text" name="color_main_te" id="color_main_te" value=content.font_color)
+			br
+			article.edit_block
+				h3 Общий фон
+				a(href="background")
+					input(type="button" value="Редактировать" class="sub_but")
+			br
+			article.edit_block
+				h3 Комментирование ваших записей
+				article.perm
+					input(type="radio" name="com" value="1" id="com1")
+					label(for="com1") Разрешить
+					input(type="radio" name="com" value="2" id="com2")
+					label(for="com2") Запретить
+			br
+			article.edit_block
+				h3 Настройки кнопок
+				h4 Цвет текста
+				input(type="text" name="but_col" id="but_col" value=button.color)
+				h4 Цвет фона
+				input(type="text" name="but_back" id="but_back" value=button.background)
+				h4 Объёмность
+					article.perm
+						input(type="radio" name="vol" value="1" id="vol1")
+						label(for="vol1") Включить
+						input(type="radio" name="vol" value="2" id="vol2")
+						label(for="vol2") Отключить
+				h4 Плавность
+					article.perm
+						input(type="radio" name="flo" value="1" id="flo1")
+						label(for="flo1") Включить
+						input(type="radio" name="flo" value="2" id="flo2")
+						label(for="flo2") Отключить
+			br
+			article.edit_block
+				input(type="submit" value="Сохранить" class="sub_but")
+
+	section.data_system
+		input(type="text" id="sys1" value=head.one_or)
+		input(type="text" id="sys2" value=head.two_or)
+		input(type="text" id="sys3" value=head.one_col)
+		input(type="text" id="sys4" value=head.two_col)
+		input(type="text" id="sys5" value=top_panel.color)
+		input(type="text" id="sys6" value=top_panel.back_type)
+		input(type="text" id="sys7" value=top_panel.back_color_f)
+		input(type="text" id="sys8" value=top_panel.back_color_s)
+		input(type="text" id="sys9" value=main_panel.enabled)
+		input(type="text" id="sys10" value=main_panel.position)
+		input(type="text" id="sys11" value=main_panel.color)
+		input(type="text" id="sys12" value=main_panel.back_title)
+		input(type="text" id="sys13" value=main_panel.back_main)
+		input(type="text" id="sys14" value=main_panel.news)
+		input(type="text" id="sys15" value=main_panel.brenchs)
+		input(type="text" id="sys16" value=main_panel.archives)
+		input(type="text" id="sys17" value=content.back_color)
+		input(type="text" id="sys18" value=content.opacity)
+		input(type="text" id="sys19" value=content.font_color)
+		input(type="text" id="sys20" value=content.title_color)
+		input(type="text" id="sys21" value=button.volime)
+		input(type="text" id="sys22" value=button.flow)
+		input(type="text" id="sys23" value=main.comments)
+		input(type="text" id="sys24" value=top_panel.height)

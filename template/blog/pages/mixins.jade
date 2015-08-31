@@ -1,0 +1,45 @@
+//- Пост
+mixin post(name, text, date, comments, link, branch)
+			section.post
+				h3.post_tit=name
+				article.info
+					article.date.in=date
+					article.branch.in
+						a(href='/rubric/' + branch)=branch
+					article.comments.in 
+						a(href=link) #{comments} комментариев
+				article.data_post
+					p!=text
+				a(href=link)
+					article.but_read Читать
+				article.clearfix
+//- Комментарий
+mixin comment(name, date, text)
+	article.comment_post
+		article.comm_head
+			article.comm_name!=name
+			article.comm_date=date
+		article.comm_text!=text
+//- Комментарий для админа
+mixin comment_admin(name, date, text, id)
+	article.comment_post
+		article.comm_head
+			article.comm_name!=name
+			article.comm_date=date
+		article.comm_text!=text
+		article.comm_control
+			form(action="" method="post")
+				input(type="hidden" name="type" value="3")
+				input(type="hidden" name="numb" value=id)
+				input(type="submit" value="Удалить").but_read
+//- Статья в шапке
+mixin link(id, name, db_name)
+	article.link
+		article.name=name
+		article.db_name=db_name
+		article.link_del
+			form(action="" method="post")
+				input(type="hidden" name="type" value="1")
+				input(type="hidden" name="target" value=name)
+				input(type="submit" value="Удалить").but_read
+		article.clearfix
