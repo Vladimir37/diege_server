@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	h1 Рестарт
+	form(action="" method="post")
+		input(type="text" name="log" placeholder="Логин администратора" required)
+		br
+		input(type="text" name="pass" placeholder="Пароль администратора" required)
+		br
+		input(type="submit" value="Перезапустить")

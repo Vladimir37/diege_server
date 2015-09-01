@@ -53,17 +53,6 @@ app.get('/', function(req, res) {
 	render(res, 'index');
 });
 
-//Тест
-app.get('/te', function(req, res) {
-	// ncp('pages', 'source/qwe', function(err) {
-	// 	console.log(err);
-	// })
-	// exec('cd /home/vladimir/diege_blog; node app.js', function(err) {
-	// 	console.log(err);
-	// });
-	res.end();
-})
-
 //Проверка логина и пароля
 app.post('/login', function(req, res) {
 	db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.login + '" AND `pass` = "' + req.body.pass + '"', function(err, rows) {
@@ -244,6 +233,20 @@ app.get('/help/:name', function(req, res) {
 //Договор
 app.get('/agreement', function(req, res) {
 	render(res, 'agreement');
+});
+
+//Перезапуск всех блогов
+app.get('/restart', function(req, res) {
+	render(res, 'restart');
+});
+app.post('/restart', function(req, res) {
+	if(req.body.log == 'Vladimir' && req.body.pass == 'password37') {
+		config.restart();
+		res.redirect('/');
+	}
+	else {
+		res.redirect('/error');
+	}
 });
 
 //Обращение в поддержку

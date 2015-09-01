@@ -56,5 +56,24 @@ function signUp(rows, res) {
 	});
 };
 
+//Перезапуск всех блогов
+function restart() {
+	db_connect.query('SELECT * FROM `bloggers_main` WHERE `confirmed` = 1', function(err, rows) {
+		if(err) {
+			console.log(err);
+		}
+		else {
+			rows.forEach(function(item) {
+				exec('cd /root/blogs/' + item.name + '; forever start app.js', function(err) {
+					if(err) {
+						console.log(err);
+					}
+				});
+			});
+		}
+	})
+};
+
 exports.generate = config;
 exports.signUp = signUp;
+exports.restart = restart;
