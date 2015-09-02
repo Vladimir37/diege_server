@@ -235,6 +235,11 @@ app.get('/agreement', function(req, res) {
 	render(res, 'agreement');
 });
 
+//Пустой блог
+app.get('/empty', function(req, res) {
+	render(res, 'empty');
+});
+
 //Перезапуск всех блогов
 app.get('/restart', function(req, res) {
 	render(res, 'restart');
