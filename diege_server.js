@@ -39,7 +39,7 @@ Object.defineProperty(global, 'db_connect', {
 
 //Данные зашифровки
 var crypt = new Crypt({
-	secret: 'vladimir_parol_37', 
+	secret: 'key', 
 	iterations: 3700
 });
 
@@ -63,10 +63,10 @@ app.post('/login', function(req, res) {
 			//Логин дальше
 			var log_params;
 			if(req.body.remember) {
-				log_params = { maxAge: 1209600000 };
+				log_params = { maxAge: 1209600000, domain: '.diege.ru' };
 			}
 			else {
-				log_params = null;
+				log_params = { domain: '.diege.ru' };
 			}
 			var crypt_key = crypt.encrypt(rows[0].key);
 			res.cookie('aut.' + rows[0].name + '.diege', crypt_key, log_params);
@@ -167,7 +167,7 @@ app.get('/confirm/:name', function(req, res) {
 												console.log(err);
 											}
 											else {
-												config.signUp(rows, res);
+												config.signUp(rows, res, render);
 											}
 										});
 									}
@@ -245,7 +245,7 @@ app.get('/restart', function(req, res) {
 	render(res, 'restart');
 });
 app.post('/restart', function(req, res) {
-	if(req.body.log == 'Vladimir' && req.body.pass == 'password37') {
+	if(req.body.log == 'login' && req.body.pass == 'password') {
 		config.restart();
 		res.redirect('/');
 	}
@@ -355,9 +355,15 @@ function render(res, page, obj) {
 			render(res, 'error');
 		}
 		else {
+			if(page == 'error') {
+				res.writeHead(404, {'Content-Type': 'text/html'});
+			}
+			else {
+				res.writeHead(200, {'Content-Type': 'text/html'});
+			}
 			res.end(resp)
 		}
 	});
 };
 
-http.createServer(app).listen(80);
+http.createServer(app).listen(79);

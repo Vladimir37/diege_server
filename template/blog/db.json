@@ -1,6 +1,6 @@
 {
 	"host"     : "localhost",
   	"user"     : "root",
-  	"password" : "node_db",
+  	"password" : "pass",
   	"database" : "diege_main"
 }

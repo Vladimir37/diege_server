@@ -8,7 +8,7 @@ var connect = require('./disconnect');
 
 //Данные расшифровки куков
 var crypt = new Crypt({
-	secret: 'vladimir_parol_37', 
+	secret: 'key', 
 	iterations: 3700
 });
 

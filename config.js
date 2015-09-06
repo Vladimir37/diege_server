@@ -1,12 +1,13 @@
+var fs = require('fs');
 var exec = require('child_process').exec;
 
 //Генерация nginx конфига
 function config(domain, port) {
-	return "server {\n	listen 80;\n\n	server_name " + domain + ".diege.ru;\n	client_max_body_size 512m;\n\n	location / {\n		proxy_pass http://localhost:" + port + ";\n		proxy_http_version 1.1;\n		proxy_set_header Upgrade $http_upgrade;\n		proxy_set_header Connection 'upgrade';\n		proxy_set_header Host $host;\n		proxy_cache_bypass $http_upgrade;\n	}\n}"
+	return "server {\n	listen 80;\n\n	server_name " + domain + ".diege.ru;\n	client_max_body_size 16m;\n\n	location / {\n		proxy_pass http://localhost:" + port + ";\n		proxy_http_version 1.1;\n		proxy_set_header Upgrade $http_upgrade;\n		proxy_set_header Connection 'upgrade';\n		proxy_set_header Host $host;\n		proxy_cache_bypass $http_upgrade;\n	}\n}"
 };
 
 //Создание баз и запуск клиента
-function signUp(rows, res) {
+function signUp(rows, res, render) {
 	//Создание баз
 	db_connect.query('CREATE TABLE `' + rows[0].name + '_post` (`id` int(11) NOT NULL AUTO_INCREMENT,`name` text NOT NULL,`text` longtext NOT NULL,`date` text NOT NULL,`imgs` text,`rubric` text,`comment` int(11) NOT NULL DEFAULT "0",`pool` int(11) NOT NULL DEFAULT "0",PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8', function(err) {
 		if(err) {

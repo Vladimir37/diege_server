@@ -6,6 +6,7 @@ function parse(req, res) {
 	if(result[0] == 'source'){
 		result.unshift('blog');
 		var resName = result.join('/');
+		resName = decodeURI(resName);
 		render.source(res, resName)
 	}
 	else {

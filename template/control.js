@@ -74,7 +74,7 @@ function createBack(req, res) {
 			console.log(files.back);
 			if(files.back.type.slice(0,6) == 'image/'){
 				fs.rename(files.back.path, 'blog/source/back-blog/' + frame.main.max_back, function() {
-					editFrame(res, frame, '');
+					editFrame(res, frame, 'background');
 				});
 			}
 			else {
