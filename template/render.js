@@ -73,7 +73,7 @@ function renderRes(res, name) {
 			console.log(err);
 		}
 		else {
-			res.charset = 'utf-8';
+			res.writeHead(200, {'Cache-Control': 'private, max-age=200000'});
 			res.end(resp);
 		}
 	});
