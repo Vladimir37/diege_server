@@ -29,7 +29,7 @@ block content
 					input(type="submit" value="Отправить").but_read
 	-if(extra2)
 		- for(var i = 0; i < extra2.length; i++)
-			-if(extra2[i].author_blog == 1)//
-				mixin comment('<a href="http://' + extra2[i].autor_name + '.diege.ru">' + extra2[i].autor_name + '</a>', extra2[i].date, extra2[i].text)
+			-if(extra2[i].author_blog == 1)
+				mixin comment_admin('<a href="http://' + extra2[i].autor_name + '.diege.ru">' + extra2[i].autor_name + '</a>', extra2[i].date, extra2[i].text, extra2[i].id)
 			-else
-				mixin comment(extra2[i].autor_name, extra2[i].date, extra2[i].text)
+				mixin comment_admin(extra2[i].autor_name, extra2[i].date, extra2[i].text, extra2[i].id)
