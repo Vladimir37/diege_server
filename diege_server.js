@@ -19,6 +19,7 @@ var re_num = new RegExp('^[0-9]{1,}$');
 var re_mail = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$');
 var re_name = new RegExp('^[a-zA-Z0-9]{1,20}$');
 var re_pass = new RegExp('^[а-яА-Яa-zA-Z0-9\+\-\_\!\&\?\%\@\ё\Ё]{1,}$');
+var re_www = new RegExp('^[wW]{3}$');
 
 //Подключение к базе
 fs.readFile('db.json', function(err, resp) {
@@ -191,7 +192,7 @@ app.get('/sign', function(req, res) {
 
 //Проверка занятости имени и почты 
 app.post('/name_check', function(req, res) {
-	if(re_name.test(req.body.data)) {
+	if(re_name.test(req.body.data) && !re_www.test(req.body.data)) {
 		db_connect.query('SELECT * FROM `bloggers_main` WHERE `name` = "' + req.body.data + '"', function(err, rows) {
 			if(rows == '') {
 				res.end('free');
