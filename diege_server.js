@@ -86,6 +86,8 @@ app.get('/login', function(req, res) {
 app.post('/sign', function(req, res) {
 	var name_re = new RegExp('^[a-zA-Z0-9]+$');
 
+	req.body.name = req.body.name.toLowerCase();
+	req.body.mail = req.body.mail.toLowerCase();
 	if(name_re.test(req.body.name) && re_pass.test(req.body.pass)) {
 		db_connect.query('SELECT * FROM `bloggers_main` WHERE `name` = "' + req.body.name + '"', function(err, rows) {
 			if(rows == '') {
@@ -192,6 +194,7 @@ app.get('/sign', function(req, res) {
 
 //Проверка занятости имени и почты 
 app.post('/name_check', function(req, res) {
+	req.body.data = req.body.data.toLowerCase();
 	if(re_name.test(req.body.data) && !re_www.test(req.body.data)) {
 		db_connect.query('SELECT * FROM `bloggers_main` WHERE `name` = "' + req.body.data + '"', function(err, rows) {
 			if(rows == '') {
@@ -207,6 +210,7 @@ app.post('/name_check', function(req, res) {
 	}
 });
 app.post('/mail_check', function(req, res) {
+	req.body.data = req.body.data.toLowerCase();
 	if(re_mail.test(req.body.data)) {
 		db_connect.query('SELECT * FROM `bloggers_main` WHERE `mail` = "' + req.body.data + '"', function(err, rows) {
 			if(rows == '') {
